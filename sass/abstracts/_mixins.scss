@@ -1,0 +1,65 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% ,-50%);
+}
+
+
+//media queries manager
+/*
+0 -600px   : Phne
+600-900px  : Tablet portait
+900-1200px : Tablet landscape
+1800px +   : Big desktoip
+
+
+*/
+
+// @mixin respond-phone {
+//     @media(max-width: 600px){
+//         //allows us to paste bock of code into mixin
+//         @content
+//     };
+// }
+
+/*
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- bid-desktop
+
+
+Order: Base > typography > general layout > grid > page layout > components
+*/
+
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        //we cannot use pixels cause if user changes the font size in hid browser then it will change aswell and ruin
+        // @media (max-width: 600px) { @content};
+        /* Rem and em units in media queries are not affected by our root font-size setting. They are affected by the font-size which comes from the browser. So default is 16px. Rem fail sometimes in some browsers so better use 'em'
+        1em = 16px;
+        600 / 16px = 37.5em
+        */
+        @media (max-width: 37.5em) { @content}; //600px
+    }
+    @if $breakpoint == tab-port {
+        @media (max-width: 56.25em) { @content}; //900px
+    }
+    @if $breakpoint == tab-land {
+        @media (max-width: 75em) { @content}; //1200px
+    }
+    @if $breakpoint == bid-desktop {
+        @media (min-width: 112.5em) { @content}; //1800px
+    }
+}

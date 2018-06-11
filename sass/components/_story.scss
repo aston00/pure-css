@@ -1,0 +1,70 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    //decline the box 
+    transform: skewX(-12deg);
+
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        float: left;
+        
+        //Make circle Numbers: radiusofcircle at centering circlehoriz-ly and verticly
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        //To use it there should be defined width , height, float
+        //it defines where content floats around content
+        shape-outside: circle(50% at 50% 50%);
+
+        -webkit-clip-path : circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+
+        //make space between circle and text
+        transform: translateX(-3rem) skewX(12deg);
+
+        //container for caption
+        position: relative;
+    }
+    //making image responsive
+    &__img {
+        height: 100%;
+        transform: translateX(-4rem) scale(1.4);
+        backface-visibility: hidden;
+        transition: all .3s;
+    }
+
+    &__text{
+        transform: skewX(12deg);
+    }
+
+    &__caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+        color:white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        opacity: 0;
+        transition: all .3s;
+        //small movings in the end of animtaion
+        backface-visibility: hidden;
+    }
+
+    &:hover &__caption {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    //when we hover story we want image to change
+    &:hover &__img {
+        transform: translateX(-4rem) scale(1);
+        //to blur effect and darket .Lower darkness- more dark
+        filter: blur(3px) brightness(80%);
+    }
+}

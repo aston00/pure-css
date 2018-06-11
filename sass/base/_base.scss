@@ -1,0 +1,37 @@
+
+* ,
+*::after ,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+/* To use rem instead of pixels we define 1rem=10px  cause 1rem is the root element font-size*/
+html {
+    /* 10px = 10(what we want)/16px(default)*/
+    font-size: 62.5%; //this defines what 1rem is Here is: 1rem = 10(whatwewant)16px(default) = 62/5%
+
+    //if two different viewports coincide the condition then the last written will apply
+   
+    @include respond(tab-land) { //width<1200?
+        font-size: 56.25%; //we want 9px , 9/16 = 56.25%
+    }
+
+    @include respond(tab-port) { //width<900?
+        font-size: 50%; //we want 1rem = 8px, 8/16 = 50%
+    }
+
+    @include respond(big-desktop) {
+        font-size: 75%; //1rem = 12px, 12/16 = 75%
+    }
+}
+/* We use fonts in body due to inheritance
+Always better specify fonts in body*/
+body {
+    box-sizing: border-box;
+    padding: 3rem;
+
+    @include respond(tab-port) { 
+        padding: 0;
+    }
+}

@@ -1,0 +1,183 @@
+.navigation {
+
+    &__checkbox {
+        display:none;
+    }
+
+    &__button {
+        background-color: $color-white;
+        height: 7rem;
+        width: 7rem;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        border-radius: 50%;
+        z-index: 2000;
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        //to make button be centered inside that circle nav
+        text-align: center;
+        cursor: pointer;
+
+        @include respond(tab-port){
+            top: 4rem;
+        right: 4rem;
+        }
+
+        @include respond(phone){
+            top: 3rem;
+        right: 3rem;
+    }
+
+
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        //radial gradient starts at the position and then goes all the way around element
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000;
+        //for when we click then it visually comes from that small circle to this entire page
+        // transform: scale(80);
+
+        //function to make effect like our list goes to the top right and not just hides to left
+        transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+        
+        @include respond(tab-port){
+            top: 4.5rem;
+        right: 4.5rem;
+        }
+
+        @include respond(phone){
+            top: 3.5rem;
+        right: 3.5rem;
+        }
+    }
+
+    &__list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__nav {
+        height: 100vh;
+        
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1500;
+        
+
+        //make list be hidden 
+        opacity: 0;
+        width: 0;
+
+        transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 300;
+            padding: 1rem 2rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+            background-image: linear-gradient(120deg, transparent 0%,  transparent 50%, $color-white 50%);
+            background-size: 220%;
+            transition: all .4s;
+
+            span {
+                margin-right: 1rem;
+                display: inline-block;
+            }
+        }
+
+        &:hover,
+        &:active {
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+        }
+        
+    }
+
+
+    //checkbox hack
+    &__checkbox:checked ~ &__background {
+        //when checkbox checked - our gradient scales everything                                                                                                            
+        transform: scale(80);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        //when checkbox checked - our gradient scales everything                             
+        width: 100%;
+        opacity: 1;                                                                                   
+        
+    }
+
+
+    //icon
+    &__icon {
+
+        position: relative;
+        margin-top: 3.3rem;
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+        }
+        //to make pseudo elemeents after and before appear we need to give them 'content' property and 'display'
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            //animation for hover
+            transition: all .2s;
+        }
+
+        &::before { top: -.8rem;}
+        &::after { top: .8rem;}
+    }
+
+    //hover eeffevt
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+    //make when we click cross appear. When checkbox selected - we select its brother  child - icon and make it transparent (middle line)
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+    }
+    //make the inline of the lines (first one)
+    &__checkbox:checked + &__button &__icon::before {
+        transform: rotate(135deg);
+        top: 0;
+    }
+    //second one
+    &__checkbox:checked + &__button &__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+}
